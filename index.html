@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Main Page</title>
+    <style>
+      .container {
+        display: flex;
+        width: 100%;
+      }
+      .detail-conatiner {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+
+      table,
+      th,
+      td {
+        border: 1px solid black;
+      }
+
+      th,
+      td {
+        padding: 10px;
+        text-align: left;
+      }
+
+      th {
+        background-color: #f2f2f2;
+      }
+      .label-selector {
+        display: flex;
+        flex-direction: column;
+      }
+      .control-selector {
+        display: flex;
+        flex-direction: row;
+      }
+      .control-selector div {
+        display: flex;
+        flex-direction: column;
+      }
+    </style>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="./script.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div id="wall"></div>
+      <div class="detail-conatiner">
+        <table>
+          <tr>
+            <th>Attribute</th>
+            <th>Value</th>
+          </tr>
+          <tr>
+            <td><strong>Title:</strong></td>
+            <td><p id="paperTitle"></p></td>
+          </tr>
+          <tr>
+            <td><strong>Author Name:</strong></td>
+            <td><p id="authorName"></p></td>
+          </tr>
+          <tr>
+            <td><strong>Country:</strong></td>
+            <td><p id="countryInfo"></p></td>
+          </tr>
+          <tr>
+            <td><strong>Year:</strong></td>
+            <td><p id="yearInfo"></p></td>
+          </tr>
+        </table>
+        <div class="label-selector">
+          <label>
+            <input type="radio" name="nodeSelector" value="0" checked />
+            Number of Publications
+          </label>
+          <label>
+            <input type="radio" name="nodeSelector" value="1" />
+            Degree
+          </label>
+          <label>
+            <input type="radio" name="nodeSelector" value="2" />
+            Number of Citations
+          </label>
+        </div>
+        <div class="control-selector">
+          <div>
+            <label for="collide">Collide Force:</label>
+            <input
+              type="range"
+              id="collide"
+              min="0"
+              max="100"
+              step="1"
+              value="0"
+            />
+          </div>
+          <div>
+            <label for="charge">Charge Force:</label>
+            <input
+              type="range"
+              id="charge"
+              min="-1000"
+              max="1000"
+              step="1"
+              value="-55"
+            />
+          </div>
+          <div>
+            <label for="linkStrength">Link Strength:</label>
+            <input
+              type="range"
+              id="linkStrength"
+              min="0"
+              max="1"
+              step="0.1"
+              value="0.4"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      d3.json("./network.json").then(function (data) {
+        let svg = d3
+          .select("#wall")
+          .append("svg")
+          .attr("width", "800px")
+          .attr("height", "800px")
+          .attr("viewBox", "0 0 1000 800");
+
+        simulate(data, svg); // main function to make network
+      });
+    </script>
+  </body>
+</html>
