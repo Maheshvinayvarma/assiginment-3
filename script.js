@@ -92,7 +92,6 @@ function simulate(data, svg) {
 
   function updateLinkStrength() {
     let strength = parseFloat(linkStrengthInput.value);
-    linkStrength_value.innerHTML = strength;
     linkForce.strength(strength);
     forceSimulation.alpha(0.5).restart();
   }
